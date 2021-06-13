@@ -30,6 +30,11 @@ export const approve = async (token_address, target_address, provider, signer) =
   await token.connect(signer).approve(target_address, max)
 }
 
+export const transfer = async (token_address, to, amount ,provider, signer) => {
+  let token = new ethers.Contract(token_address, erc20_abi, provider)
+  await token.connect(signer).transfer(to, amount)
+}
+
 window.approve = approve
 
 //bind----------------------------------------------
@@ -47,4 +52,11 @@ $("#approve").click(async ()=>{
   let token_address = $("#approve_token").val()
   let target_address = $("#approve_account").val()
   await approve(token_address, target_address, window.provider, window.me)
+})
+
+$("#transfer").click(async ()=>{
+  let token_address = $("#transfer_token").val()
+  let to_address = $("#transfer_to").val()
+  let amount = $("#transfer_amount").val()
+  await transfer(token_address, to_address, amount, window.provider, window.me)
 })
