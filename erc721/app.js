@@ -6,19 +6,24 @@ export const tokenInfo = async (token_address, tokenId, provider) => {
   let token = new ethers.Contract(token_address, erc721_abi, provider)
   return [await token.ownerOf(tokenId), await token.tokenURI(tokenId)]
 }
-window.tokenInfo = tokenInfo
+
 
 export const setApproveAll = async (token_address, target_address, okOrNot, provider, signer) => {
   let token = new ethers.Contract(token_address, erc721_abi, provider)
   await token.connect(signer).setApprovalForAll(target_address, okOrNot)
 }
-window.setApproveAll = setApproveAll
+
 
 export const batchMint = async (token_address, to, amount, provider, signer) => {
   let token = new ethers.Contract(token_address, erc721batch_abi, provider)
   await token.connect(signer).batchMint(to, amount)
 }
 window.batchMint = batchMint
+
+export const setNewURI = async (token_address, uri, provider, signer) => {
+  let token = new ethers.Contract(token_address, erc721batch_abi, provider)
+  await token.connect(signer).setBaseURI(uri)
+}
 
 export const getLogFromTo = async(token_address, user_address, provider) => {
   let result = await Promise.all([
@@ -28,7 +33,6 @@ export const getLogFromTo = async(token_address, user_address, provider) => {
   return mergeLog(result[0],result[1])
 }
 
-window.getLogFromTo = getLogFromTo
 
 export const getLogTransferFilterFrom = async(token_address, user_address, provider) => {
   return getLogTransfer(token_address, user_address, 0, provider)
@@ -53,7 +57,7 @@ export const getAllTokensOf = async(token_address, user_address, provider) => {
   }
   return Array.from(tokens)
 }
-window.getAllTokensOf = getAllTokensOf
+
 
 //type 0 from, 1 to
 const getLogTransfer = async(token_address, user_address, type, provider) => {
@@ -108,3 +112,15 @@ $("#query_tokens").click(async ()=>{
   let tokens = await getAllTokensOf(contract_address, owner_address, window.provider)
   $("#batch_log").val(tokens)
 })
+
+$("#change_uri").click(async ()=>{
+  let contract_address = $("#change_address").val()
+  let new_uri = $("#new_uri").val()
+  await setNewURI(contract_address, new_uri, window.provider, window.me)
+})
+
+
+window.tokenInfo = tokenInfo
+window.setApproveAll = setApproveAll
+window.getLogFromTo = getLogFromTo
+window.getAllTokensOf = getAllTokensOf
