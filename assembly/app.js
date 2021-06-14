@@ -61,6 +61,27 @@ export const confirmSwap = async (addressA, aswp, signer) => {
   await aswp.connect(signer).confirmSwapAsB(addressA)
 }
 
+export const getAllPairsOf = async (address, aswp) => {
+  let log_pair_created = await (async () => {
+    let filter = aswp.filters.PairCreated(address)
+    let abi = ["event PairCreated(address indexed A, address indexed B, uint256 tokenA, uint256 tokenB)"]
+    let iface = new ethers.utils.Interface(abi);
+    let logs = await aswp.queryFilter(filter)
+    let decodedEvents = logs.map(log => iface.parseLog(log));
+    return decodedEvents
+  })()
+
+  return log_pair_created.map(x => {
+    let r = x.args
+    return {
+      partyA: r.A,
+      partyB: r.B,
+      tokenA: r.tokenA.toString(),
+      tokenB: r.tokenB.toString()
+    }
+  })
+}
+
 export const listTokenInfo = async(aswp, tokenId) => {
   let log_machine_create = await (async () => {
     let filter = aswp.filters.AssemblyAsset(null, ethers.BigNumber.from(tokenId))
@@ -116,6 +137,7 @@ $("#swap_address").html(aswp_address)
  window.listTokenInfo = listTokenInfo
  window.createPair = createPair
  window.checkPair = checkPair
+ window.getAllPairsOf = getAllPairsOf
 
 
  window.assets = {
@@ -246,4 +268,13 @@ $("#swap_address").html(aswp_address)
     let addressA = $("#confirm_swap_tokenA").val()
     let aswp = new ethers.Contract(aswp_address, aswp_abi, window.provider)
     await confirmSwap(addressA, aswp, window.me)
+  })
+
+  $("#show_all_pair").click( async ()=> {
+    let token = $("#assembly_contract").val()
+    let user = $("#pair_creator").val()
+    let aswp = new ethers.Contract(token, aswp_abi, window.provider)
+    let result = await getAllPairsOf(user, aswp)
+    
+    $("#all_pairs").val(JSON.stringify(result))
   })
