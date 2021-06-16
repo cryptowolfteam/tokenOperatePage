@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>blindbox devpage</title>
+  <!-- head 中 -->
+  <script type="module">
+    import { ethers } from "../js/ethers-5.0.esm.min.js";
+      window.ethers = ethers;
+  </script>
+  <script src="../js/bignumber.mini.js"></script>
+  <script src="../js/jquery.mini.js"></script>
+</head>
+
+<body>
+  <a href="../"> back</a>
+  <br>
+
+  <p style="color:orange">using address:<span id="my_address"></span></p>
+
+  <div style="color:blue;">
+    deployed contracts:<br>
+    --------kovan: <br>
+    wolf token: 0x006af534efd968ef4367e6381cfbb688431080d2 <br>
+    box factory: 0xF6A47724947726497D3d56664a760bF22837Cb9d <br>
+    blind box: 0x98e20e48b38bBA60E2e87f0b1dD87f8CcB05f065 <br>
+  </div>
+
+  <div>
+    <p style="color:green">check plan number of factory:</p>
+    <input type="text" id="check_number_factory" style="width:220px"></span>
+    <button id="query_plan_number">query</button><br>
+    <span>total: <span id="plan_number"></span></span>
+  </div>
+
+  <div>
+    <p style="color:green">check business plan:</p>
+    <span>factory address:
+      <input type="text" id="check_plan_factory" style="width:220px"></span>
+    build plan number:
+    <input type="text" id="check_plan_number"></span>
+    <button id="query_plan">query</button><br>
+    <textarea id="show_plan" style="width:400px;height: 200px;" disabled></textarea>
+    </span>
+  </div>
+
+  <div>
+    <p style="color:green">check all box machine of:</p>
+    <span>factory address:
+      <input type="text" id="check_box_factory" style="width:220px"></span>
+    user address (can be empty):
+    <input type="text" id="check_box_owner" style="width:220px"></span>
+    <button id="query_box">query</button><br>
+    <textarea id="show_box" style="width:400px;height: 200px;" disabled></textarea>
+    </span>
+  </div>
+
+  <div>
+    <p style="color:green">get box machine info:</p>
+    <span>box address:
+      <input type="text" id="get_info_box" style="width:220px"></span>
+      <button id="query_box_info">query</button><br>
+    </span>
+    <p>
+      total stock:<span id="stock_number"></span> <br>
+      box price: <span id="price"></span>
+    </p>
+  </div>
+
+  <div>
+    <p style="color:green">show all stock:</p>
+    <span>box address:
+      <input type="text" id="show_all_stock_box" style="width:220px"></span>
+      <button id="show_all_query">query</button><br>
+      <textarea id="show_all_stock" style="width:600px;height: 200px;" disabled></textarea>
+    </span>
+  
+  </div>
+
+  <div>
+    <p style="color:red">draw:</p>
+    <span>box address:
+      <input type="text" id="draw_box_address" style="width:220px"></span>
+      draw times:
+      <input type="text" id="draw_box_times"></span>
+      to:
+      <input type="text" id="draw_box_to" style="width:220px"></span>
+      <button id="draw">draw</button><br>
+    </span>
+  
+  </div>
+
+
+</body>
+<script type="module" src="../js/app.js"></script>
+<script type="module" src="app.js"></script>
+
+</html>
