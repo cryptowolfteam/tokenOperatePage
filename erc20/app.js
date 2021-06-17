@@ -7,6 +7,10 @@ export const balanceOf = async (token_address, user_address, provider) => {
   return (await token.balanceOf(user_address)).toString()
 }
 
+export const allowance = async (token, owner_address, spender_address) => {
+  return (await token.allowance(owner_address, spender_address)).toString()
+}
+
 window.balanceOf = balanceOf
 
 export const tokenInfo = async (token_address, provider) => {
@@ -59,4 +63,14 @@ $("#transfer").click(async ()=>{
   let to_address = $("#transfer_to").val()
   let amount = $("#transfer_amount").val()
   await transfer(token_address, to_address, amount, window.provider, window.me)
+})
+
+$("#check_allowance").click( async ()=>{
+  let token_address = $("#check_allowance_token").val()
+  let owner = $("#check_allowance_owner").val()
+  let spender = $("#check_allowance_spender").val()
+  let token = new ethers.Contract(token_address, erc20_abi, provider)
+  let allowance_amount = (await token.allowance(owner, spender)).toString()
+  console.log(allowance_amount)
+  $("#allowance_amount").html(allowance_amount)
 })
