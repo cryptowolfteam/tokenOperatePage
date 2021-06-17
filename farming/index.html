@@ -20,18 +20,34 @@
   <p style="color:orange">using address:<span id="my_address"></span></p>
 
   <div>
+    kovan: <br>
+    master_chef: 0xb44A3703a6aC269456FB1f2418279512a358E40E
+  </div>
+
+  <div>
     <p style="color:green">get pool length:</p>
-    <span>get pool length
-      <input type="text" id="check_balance_token" style="width:220px"></span>
-    balanceOf
-    <input type="text" id="check_balance_account" style="width:220px"></span>
-    is: <span id="amount"></span> (symbol <span id="symbol"></span>
-    , decimal <span id="decimal"></span> )
-    <button id="query_balance">query</button>
+    <span>chef address
+      <input type="text" id="get_length_pool" style="width:220px"></span>
+    <button id="query_length">query</button>
+    length:<span id="pool_length"></span>
     </span>
   </div>
 
+  <div>
+    <p style="color:green">check pool info</p>
+    <span>chef address
+      <input type="text" id="check_info_chef" style="width:220px"></span>
+    pool number
+      <input type="text" id="pool_number" style="width:220px"></span>
+    <button id="check_pool_info">query</button><br>
+    lp token: <span id="info_lp"></span><br>
+    allocPoint: <span id="info_alloc"></span><br>
+    lastRewardBlock: <span id="reward_block"></span><br>
+    accMulanV2PerShare: <span id="accShare"></span><br>
+    </span>
+  </div>
 
+  
 
 </body>
 <script type="module" src="../js/app.js"></script>

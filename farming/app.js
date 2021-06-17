@@ -1,29 +1,39 @@
 import {
-  erc20_abi
+  master_chef_abi
 } from "./abi.js";
 
 
 
+export const checkPoolLength = async (master_chef)=>{
+  return (await master_chef.poolLength()).toString()
+}
+
+export const checkPoolInfo = async (master_chef, number) => {
+  let result = await master_chef.poolInfo(number)
+  return {
+    lpToken : result[0],
+    allocPoint : result[1].toString(),
+    lastRewardBlock : result[2].toString(),
+    accMulanV2PerShare : result[3].toString()
+  }
+}
+
 //bind----------------------------------------------
-$("#query_balance").click(async ()=>{
-  let token_address = $("#check_balance_token").val()
-  let account = $("#check_balance_account").val()
-  let balance = await balanceOf(token_address, account, window.provider)
-  let info = await tokenInfo(token_address, window.provider)
-  $("#amount").html(balance / 10**info[1])
-  $("#decimal").html(info[1])
-  $("#symbol").html(info[0])
+
+$("#query_length").click(async ()=>{
+  let chef_address = $("#get_length_pool").val()
+  let chef = new ethers.Contract(chef_address, master_chef_abi, window.provider)
+  let length = await checkPoolLength(chef)
+  $("#pool_length").html(length)
 })
 
-$("#approve").click(async ()=>{
-  let token_address = $("#approve_token").val()
-  let target_address = $("#approve_account").val()
-  await approve(token_address, target_address, window.provider, window.me)
-})
-
-$("#transfer").click(async ()=>{
-  let token_address = $("#transfer_token").val()
-  let to_address = $("#transfer_to").val()
-  let amount = $("#transfer_amount").val()
-  await transfer(token_address, to_address, amount, window.provider, window.me)
+$("#check_pool_info").click(async ()=> {
+  let chef_address = $("#check_info_chef").val()
+  let pool_number = $("#pool_number").val()
+  let chef = new ethers.Contract(chef_address, master_chef_abi, window.provider)
+  let result = await checkPoolInfo(chef, pool_number)
+  $("#info_lp").html(result.lpToken)
+  $("#info_alloc").html(result.allocPoint)
+  $("#reward_block").html(result.lastRewardBlock)
+  $("#accShare").html(result.accMulanV2PerShare)
 })
