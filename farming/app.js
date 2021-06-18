@@ -76,7 +76,7 @@ $("#query_pending").click(async ()=> {
 $("#deposit_lp").click(async ()=> {
   let chef_address = $("#deposit_chef").val()
   let pool_number = $("#deposit_pool_number").val()
-  let amount = $("#deposit_amount").val()
+  let amount = $("#deposit_input").val()
   let chef = new ethers.Contract(chef_address, master_chef_abi, window.provider)
   await deposit(chef, pool_number, amount, window.me)
 })
