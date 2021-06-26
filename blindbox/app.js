@@ -58,6 +58,16 @@ export const drawBox = async (times, box, to, signer) => {
   return box.connect(signer).drawBox(times, to)
 }
 
+export const addListenerDrawResultOnce = (box, account, provider) => {
+  let filter = box.filters.DrawBlindBox(account)
+  provider.once(filter, (log)=>{
+    let abi = ["event DrawBlindBox(address indexed Receiver, address[] ERC721Addresses, uint[] TokenIds)"]
+    let iface = new ethers.utils.Interface(abi);
+    let decodedEvents = iface.parseLog(log);
+    console.log(decodedEvents)
+  })
+}
+
 export const getReceiveHistory = async (box, account) => {
   let log_draw_box = await (async () => {
     let filter = box.filters.DrawBlindBox(account)
@@ -135,5 +145,8 @@ $("#draw").click(async ()=> {
   let times = $("#draw_box_times").val()
   let to = $("#draw_box_to").val()
   let box = new ethers.Contract(box_address, box_abi, window.provider)
+  //add listener to drawBox
+  addListenerDrawResultOnce(box, window.Address, provider)
+  console.log("listen added once")
   await drawBox(times, box, to, window.me)
 })
