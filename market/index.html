@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Market devpage</title>
+  <!-- head 中 -->
+  <script type="module">
+    import { ethers } from "../js/ethers-5.0.esm.min.js";
+      window.ethers = ethers;
+  </script>
+  <script src="../js/bignumber.mini.js"></script>
+  <script src="../js/jquery.mini.js"></script>
+</head>
+
+<body>
+  <a href="../"> back</a>
+  <br>
+
+  <p style="color:orange">using address:<span id="my_address"></span></p>
+
+  <div style="color:blue;">
+    <p>binance main:</p>
+    NFT address: 0x1998302CC8AD8b22aA73DFeB0ef3f040b2646Ba7 <br>
+    Market Address: 0x368e44512c38B1972dD4235AC80843259e9C98a9<br>
+    Address(0): 0x0000000000000000000000000000000000000000<br>
+  </div>
+
+  <div>
+    <p style="color:red">mint nft the put on market:</p>
+    <span>NFT contract:
+      <input type="text" id="put_market_nft" style="width:220px"></span><br>      
+      NFT URI:
+      <input type="text" id="put_market_URI" style="width:220px"></span><br>
+      Target Token
+      <input type="text" id="put_market_token" style="width:220px"></span><br>
+      price:
+      <input type="text" id="put_market_price" style="width:220px"></span>
+    <button id="mint">mint</button><br>
+    </span>
+  </div>
+
+  <div>
+    <p style="color:green">check order info:</p>
+    <span>Market contract:
+      <input type="text" id="check_info_market" style="width:220px"></span><br> 
+      OrderId:
+      <input type="text" id="check_info_orderId"></span><br>
+      <button id="query">query</button><br>
+      owner:<span id="info_owner"></span><br>
+      NFTContract:<span id="info_nft_address"></span><br>
+      TokenId:<span id="info_token_id"></span><br>
+      TargetToken:<span id="info_target_token"></span><br>
+      Price:<span id="info_price"></span><br>
+    </span>
+  </div>
+
+  <div>
+    <p style="color:red">change order price:</p>
+    <span>market contract:
+      <input type="text" id="change_price_market" style="width:220px"></span><br>      
+      order id:
+      <input type="text" id="change_price_order" style="width:220px"></span><br>
+      Target Token
+      <input type="text" id="change_price_token" style="width:220px"></span><br>
+      price:
+      <input type="text" id="change_price_price" style="width:220px"></span>
+    <button id="change">change</button><br>
+    </span>
+  </div>
+
+  <div>
+    <p style="color:red">withdraw order:</p>
+    <span>market contract:
+      <input type="text" id="withdraw_market" style="width:220px"></span><br> 
+      order id:
+      <input type="text" id="withdraw_order" style="width:220px"></span><br> 
+      <button id="withdraw">withdraw</button>
+    </span>
+  </div>
+
+  <div>
+    <p style="color:red">buy from order:</p>
+    todo
+  </div>
+
+</body>
+<script type="module" src="../js/app.js"></script>
+<script type="module" src="app.js"></script>
+
+</html>
